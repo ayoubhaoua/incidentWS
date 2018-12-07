@@ -33,4 +33,17 @@ public class IncidentDaoImp extends JdbcDaoSupport implements IncidentDao {
         return a;
     }
 
+    @Override
+    public List d() {
+        String sql="SELECT secteur as name ,COUNT(*) as y FROM incident GROUP BY secteur";
+        List a= (List) jdbcTemplate.queryForList(sql);
+        return a;
+    }
+    
+    @Override
+    public List c(String prov) {
+        String sql="SELECT secteur as name ,COUNT(*) as y FROM ( SELECT * from incident where province='"+prov+"')as aleas  GROUP BY secteur ";
+        List a= (List) jdbcTemplate.queryForList(sql);
+        return a;
+    }
 }

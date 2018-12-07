@@ -7,4 +7,6 @@ import java.util.Map;
 
 public interface IncidentDao {
     List allgeom();
+    public List d();
+    public List c(String prov);
 }
