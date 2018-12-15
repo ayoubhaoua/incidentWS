@@ -37,12 +37,12 @@ public class CartoControler {
     public Iterable<Incident> all(){
         return cartoRepo.findAll();
     }
-    @GetMapping("/stat/{province}")
-    public List allg(@PathVariable String province){
+    @GetMapping("/stat/{filter}/{province}")
+    public List allg(@PathVariable String province, @PathVariable String filter){
     	if(province.equals("All"))
-    		return incidentDaoImp.d();
+    		return incidentDaoImp.d(filter);
     	else 
-    		return incidentDaoImp.c(province);
+    		return incidentDaoImp.c(province,filter);
     }
     
     @GetMapping("/prov")
@@ -55,10 +55,12 @@ public class CartoControler {
     }
     
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public Incident add(@RequestBody Incident incident ) {
+    public ResponseEntity add(@RequestBody Incident incident ) {
+    	if(incident.getId()!=null)
+    		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     	incident.setDate(new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss").format(Calendar.getInstance().getTime()));
     	incident.setEtat("en attente");
-    	return cartoRepo.save(incident);
+    	return ResponseEntity.ok(cartoRepo.save(incident));
     }
    
 

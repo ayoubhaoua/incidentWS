@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public interface IncidentDao {
-    List allgeom();
-    public List d();
-    public List c(String prov);
+
+	List c(String prov, String filter);
+
+	List d(String filter);
 }

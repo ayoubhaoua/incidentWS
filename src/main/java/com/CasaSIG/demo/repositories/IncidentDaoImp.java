@@ -26,23 +26,17 @@ public class IncidentDaoImp extends JdbcDaoSupport implements IncidentDao {
         setDataSource(dataSource);
     }
 
+    
     @Override
-    public List allgeom() {
-        String sql="SELECT ST_AsGeoJSON(geometry) as geometry from incident";
-        List a=jdbcTemplate.queryForList(sql);
-        return a;
-    }
-
-    @Override
-    public List d() {
-        String sql="SELECT secteur as name ,COUNT(*) as y FROM incident GROUP BY secteur";
+    public List c(String prov, String filter) {
+        String sql="SELECT "+filter +" as name ,COUNT(*) as y FROM ( SELECT * from incident Join "+filter+" on incident."+filter+"_id="+filter+".id where province='"+prov+"')as aleas  GROUP BY "+filter;
         List a= (List) jdbcTemplate.queryForList(sql);
         return a;
     }
     
     @Override
-    public List c(String prov) {
-        String sql="SELECT secteur as name ,COUNT(*) as y FROM ( SELECT * from incident where province='"+prov+"')as aleas  GROUP BY secteur ";
+    public List d(String filter) {
+        String sql="SELECT "+filter +" as name ,COUNT(*) as y FROM incident Join "+filter+" on incident."+filter+"_id="+filter+".id GROUP BY "+filter;
         List a= (List) jdbcTemplate.queryForList(sql);
         return a;
     }

@@ -11,8 +11,10 @@ public class Incident {
     @Column(columnDefinition = "SERIAL")
     private Long id;
     private String IME;
-    private String type;
-    private String secteur;
+    @ManyToOne
+    private Type type;
+    @ManyToOne
+    private Secteur secteur;
     private float lat;
     private float lon;
     private String date;
@@ -21,15 +23,19 @@ public class Incident {
     private String motif;
     private String province;
     private String image;
-    private String pro;
+    @ManyToOne
+    private Professionnel pro;
 
     public Incident() {
     }
-    
+
     
 
-	public Incident(String iME, String type, String secteur, float lat, float lon, String date, String description,
-			String etat, String motif, String province, String image, String pro) {
+
+
+
+	public Incident(String iME, Type type, Secteur secteur, float lat, float lon, String date, String description,
+			String etat, String motif, String province, String image, Professionnel pro) {
 		super();
 		IME = iME;
 		this.type = type;
@@ -44,6 +50,9 @@ public class Incident {
 		this.image = image;
 		this.pro = pro;
 	}
+
+
+
 
 
 
@@ -63,19 +72,19 @@ public class Incident {
 		IME = iME;
 	}
 
-	public String getType() {
+	public Type getType() {
 		return type;
 	}
 
-	public void setType(String type) {
+	public void setType(Type type) {
 		this.type = type;
 	}
 
-	public String getSecteur() {
+	public Secteur getSecteur() {
 		return secteur;
 	}
 
-	public void setSecteur(String secteur) {
+	public void setSecteur(Secteur secteur) {
 		this.secteur = secteur;
 	}
 
@@ -143,12 +152,24 @@ public class Incident {
 		this.image = image;
 	}
 
-	public String getPro() {
+
+
+
+
+
+	public Professionnel getPro() {
 		return pro;
 	}
 
-	public void setPro(String pro) {
+
+
+
+
+
+	public void setPro(Professionnel pro) {
 		this.pro = pro;
 	}
+
+
     
 }
