@@ -5,6 +5,9 @@ import com.CasaSIG.demo.Models.IncidentSer;
 import com.CasaSIG.demo.dao.IncidentDao;
 import com.CasaSIG.demo.repositories.CartoRepo;
 import com.CasaSIG.demo.repositories.IncidentDaoImp;
+import com.CasaSIG.demo.repositories.SecteurRepo;
+import com.CasaSIG.demo.repositories.TypeRepo;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +31,12 @@ public class CartoControler {
 
     @Autowired
     CartoRepo cartoRepo;
+    
+    @Autowired
+    SecteurRepo secteurRepo;
+    
+    @Autowired
+    TypeRepo typeRepo;
 
     @Autowired
     IncidentDaoImp incidentDaoImp;
@@ -61,6 +70,17 @@ public class CartoControler {
     	incident.setDate(new SimpleDateFormat("yyyy/MM/dd_HH:mm:ss").format(Calendar.getInstance().getTime()));
     	incident.setEtat("en attente");
     	return ResponseEntity.ok(cartoRepo.save(incident));
+    }
+    
+    
+    @GetMapping("/secteurs")
+    public List secteurs(){
+    	return (List)secteurRepo.findAll();
+    }
+    
+    @GetMapping("/types/{secteur}")
+    public List types(@PathVariable long secteur){
+    	return (List)typeRepo.findBySecteur(secteur);
     }
    
 
