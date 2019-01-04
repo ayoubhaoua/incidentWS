@@ -37,6 +37,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth)
             throws Exception {
+    	auth.inMemoryAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
+        .withUser("admin").password("123").roles("ADMIN","USER");
+    	
         auth.eraseCredentials(false).userDetailsService(userService).passwordEncoder(NoOpPasswordEncoder.getInstance());
         
         	

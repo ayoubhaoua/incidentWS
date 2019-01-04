@@ -27,7 +27,7 @@ public class Professionnel implements UserDetails{
 	@Column(nullable=false)
 	private String password;
 	@Column(nullable=false)
-	private  String role="ROLE_USER";
+	private  String role="USER";
 	private  Boolean enabled=true;
 	
 	@ManyToMany
@@ -91,10 +91,8 @@ public class Professionnel implements UserDetails{
 	@Override
 	public ArrayList< GrantedAuthority> getAuthorities() {
 		GrantedAuthority a = new GrantedAuthority() {
-			
 			@Override
 			public String getAuthority() {
-				// TODO Auto-generated method stub
 				return "ROLE_USER";
 			}
 		};
