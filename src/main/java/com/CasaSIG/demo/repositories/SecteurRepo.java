@@ -8,4 +8,6 @@ import com.CasaSIG.demo.Models.Secteur;
 @Repository
 public interface SecteurRepo extends CrudRepository<Secteur, Long> {
 	
+	Secteur findById(long id);
+
 }
